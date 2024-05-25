@@ -1,12 +1,11 @@
 import "reflect-metadata";
 import express from 'express';
 import { createConnection } from 'typeorm';
+import routes from './routes/index';
 
 const app = express();
 app.use(express.json());
 
-// Import routes
-import routes from './routes/index';
 app.use('/api', routes);
 
 createConnection().then(() => {
