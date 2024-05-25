@@ -4,6 +4,7 @@ import { User } from '../entities/User';
 
 export class UserController {
   static getAll = async (req: Request, res: Response) => {
+    console.log('here in the getAll');
     const userRepository = getRepository(User);
     const users = await userRepository.find();
     res.send(users);
