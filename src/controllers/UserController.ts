@@ -11,7 +11,7 @@ export class UserController {
 
 
   // http://localhost:3000/api/users?page=2&pageSize=10
-  
+
   static getAll = async (req: Request, res: Response) => {
     const userRepository = getRepository(User);
 
