@@ -9,32 +9,32 @@ export class UserController {
     res.send(users);
   }; */
 
+
+  // http://localhost:3000/api/users?page=2&pageSize=10
+  
   static getAll = async (req: Request, res: Response) => {
     const userRepository = getRepository(User);
-    // Get pagination parameters from query string
+
     const page = parseInt(req.query.page as string) || 1;
     const pageSize = parseInt(req.query.pageSize as string) || 10;
     try {
-        // Calculate the number of records to skip
-        const skip = (page - 1) * pageSize;
-        // Get the users with pagination
-        const [users, total] = await userRepository.findAndCount({
-            skip: skip,
-            take: pageSize
-        });
-        // Return the paginated results
-        res.send({
-            page,
-            pageSize,
-            total,
-            totalPages: Math.ceil(total / pageSize),
-            users
-        });
+      const skip = (page - 1) * pageSize;
+      const [users, total] = await userRepository.findAndCount({
+        skip: skip,
+        take: pageSize,
+      });
+      res.send({
+        page,
+        pageSize,
+        total,
+        totalPages: Math.ceil(total / pageSize),
+        users,
+      });
     } catch (error) {
-        console.error('Error fetching users:', error);
-        res.status(500).send({ message: 'Error fetching users' });
+      console.error('Error fetching users:', error);
+      res.status(500).send({ message: 'Error fetching users' });
     }
-};
+  };
 
   static create = async (req: Request, res: Response) => {
     const userRepository = getRepository(User);
